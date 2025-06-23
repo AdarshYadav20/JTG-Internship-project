@@ -1,0 +1,1706 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!--
+        Figma Land - The Best Products Start with Figma
+        This HTML file contains a landing page with multiple sections:
+        - Navigation bar
+        - Hero section
+        - Features
+        - Video section
+        - Organize section
+        - Prototyping section
+        - Partners
+        - Testimonials
+        - Pricing
+        - Contact Us (with mailto form)
+        - Footer
+        The file also includes embedded CSS for styling and JavaScript for interactivity.
+    -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Figma Land - The Best Products Start with Figma</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap" rel="stylesheet">
+    <style>
+        /*
+            CSS RESET & BASE STYLES
+            - Remove default margin/padding
+            - Set box-sizing for all elements
+            - Set base font and background
+        */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            min-height: 100%;
+            overflow-x: hidden;
+            font-family: 'Open Sans', Arial, sans-serif;
+            background: white;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        body.modal-open {
+            overflow: hidden;
+        }
+
+        /* Navigation Bar Styles */
+        nav {
+            /*
+                Fixed navigation bar at the top
+                Transparent by default, darkens on scroll
+            */
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: transparent;
+            transition: background 0.3s ease;
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+
+        nav.scrolled {
+            background: rgba(0, 0, 0, 0.7);
+            /* Translucent dark background when scrolled */
+        }
+
+        .nav-container {
+            /*
+                Container for navigation links and logo
+                Uses flexbox for layout
+            */
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .nav-left,
+        .nav-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-left {
+            gap: 3.2rem;
+        }
+
+        .nav-right {
+            gap: 1.5rem;
+        }
+
+        .nav-left a,
+        .nav-right a {
+            color: white;
+            text-decoration: none;
+            font-size: 17px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-left a:hover,
+        .nav-right a:hover {
+            color: #2196F3;
+        }
+
+        .logo {
+            /*
+                Logo styling: bold, colored, and sized
+            */
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: #2196F3;
+            letter-spacing: 1px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* or 'flex-start' if it's on the left */
+            height: 60px;
+            /* adjust to fit your header height */
+        }
+
+        .logo img {
+            /*
+                Logo image size
+            */
+            height: 100px;
+            /* control logo size */
+        }
+
+        /* Hero Section Styles */
+        .hero {
+            /*
+                Full viewport height hero section
+                Background image, centered content, white text
+            */
+            height: 100vh;
+            width: 100%;
+            background: url('https://i.ibb.co/5WBnRSNL/Rectangle-9.png') center bottom / cover no-repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            color: white;
+        }
+
+        .hero-content {
+            /*
+                Centered content in hero section
+            */
+            max-width: 800px;
+            padding: 0 2rem;
+            z-index: 2;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        /* CTA Button */
+        .btn {
+            /*
+                Reusable button style for CTAs
+            */
+            display: inline-block;
+            padding: 15px 30px;
+            font-size: 1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 40px;
+            background-color: #217bf4;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background-color: #1666cc;
+            transform: translateY(-2px);
+        }
+
+        /* Social Links (optional) */
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.2rem;
+            text-decoration: none;
+        }
+
+        /* Responsive Design Media Queries */
+        @media (max-width: 1200px) {
+            /*
+                Adjust container and grid layouts for medium screens
+            */
+            .container {
+                max-width: 100%;
+                padding: 0 1rem;
+            }
+            .pricing-grid {
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 900px) {
+            /*
+                Stack navigation, reduce font sizes, adjust grids for tablets
+            */
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            .features-grid,
+            .partners-grid,
+            .pricing-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .organize-content,
+            .prototyping-content,
+            .contact-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            /*
+                Stack nav, hero, features, partners, pricing, and footer for mobile
+            */
+            nav {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            .nav-left,
+            .nav-right {
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+            .hero h1 {
+                font-size: 1.5rem;
+            }
+            .hero p {
+                font-size: 1rem;
+            }
+            .features-grid,
+            .partners-grid,
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+            .newsletter-form {
+                flex-direction: column;
+            }
+            .contact-details {
+                flex-direction: column;
+                gap: 1.5rem;
+                align-items: stretch;
+            }
+            .contact-item {
+                flex-direction: row;
+                align-items: center;
+                justify-content: flex-start;
+                gap: 1rem;
+            }
+            .contact-item span {
+                text-align: left;
+            }
+        }
+
+        @media (max-width: 480px) {
+            /*
+                Further stack and shrink elements for small mobile screens
+            */
+            .container {
+                padding: 0 0.5rem;
+            }
+            .features-grid,
+            .partners-grid,
+            .pricing-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+            .contact-form {
+                padding: 1rem;
+            }
+            .contact-details {
+                gap: 1rem;
+            }
+            .contact-item span {
+                font-size: 0.85rem;
+            }
+            .hero-content {
+                padding: 0 0.5rem;
+            }
+            .btn {
+                padding: 12px 18px;
+                font-size: 0.95rem;
+            }
+        }
+
+        /* Features Section Styles */
+        .features {
+            /*
+                Features section with grid layout for feature cards
+            */
+            padding: 5rem 0;
+            background: white;
+            position: relative;
+            z-index: 3;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.5rem;
+            margin-bottom: 4rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4rem;
+            margin-top: 3rem;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: 2rem 1rem;
+            background: transparent;
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            position: relative;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: #333;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        /* Video Section Styles */
+        .video-section {
+            /*
+                Section for embedded video with styled container
+            */
+            padding: 5rem 0;
+            background: white;
+        }
+
+        .video-container {
+            /*
+                Larger video container for prominence
+            */
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .video-wrapper {
+            /*
+                Wrapper for video and play button overlay
+            */
+            position: relative;
+            width: 100%;
+            height: 600px;
+            background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        #mainVideo {
+            /*
+                Responsive video element
+            */
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .play-button {
+            /*
+                Play/Pause button overlay styling
+            */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            background: rgba(33, 150, 243, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 10;
+        }
+
+        .play-button:hover {
+            background: rgba(33, 150, 243, 1);
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        .play-icon, .pause-icon {
+            display: none;
+        }
+        .play-button.playing .pause-icon {
+            display: block;
+        }
+        .play-button.paused .play-icon {
+            display: block;
+        }
+
+        .play-button.paused {
+            background: rgba(33, 150, 243, 0.9);
+        }
+        .play-button.playing {
+            background: transparent;
+        }
+
+        /* Organize Section Styles */
+        .organize-section {
+            /*
+                Section for organization features
+            */
+            padding: 5rem 0;
+            background: white;
+        }
+
+        .organize-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .organize-text h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .organize-text p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .organize-image {
+            text-align: center;
+        }
+
+        .organize-image img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Prototyping Section Styles */
+        .prototyping-section {
+            /*
+                Section for prototyping features and newsletter form
+            */
+            padding: 5rem 0;
+            background: white;
+        }
+
+        .prototyping-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .prototyping-image {
+            text-align: center;
+        }
+
+        .prototyping-image img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .prototyping-text {
+            text-align: left;
+        }
+
+        .prototyping-text h3 {
+            font-size: 1rem;
+            color: #000000;
+            margin-bottom: 0.5rem;
+        }
+
+        .prototyping-text h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .prototyping-text p {
+            font-weight: 400;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            outline: none;
+        }
+
+        .illustration {
+            width: 100%;
+            max-width: 400px;
+            height: 300px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .illustration::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 64px;
+            height: 64px;
+            background: url('https://i.ibb.co/FL9QsmBz/Vector.png') center/contain no-repeat;
+        }
+
+        /* Partners Section Styles */
+        .partners {
+            /*
+                Section for partner logos in a grid
+            */
+            padding: 5rem 0;
+            background: white;
+        }
+
+        .partners-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+            margin-top: 3rem;
+            align-items: center;
+        }
+
+        .partner-card {
+            text-align: center;
+            padding: 2rem;
+            border: 1px solid #e0e0e0;
+        }
+
+        .partner-card:hover {
+            transform: none;
+        }
+
+        .partner-card p {
+            margin-bottom: 1rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .partner-logo {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .google {
+            color: #4285F4;
+        }
+
+        .amazon {
+            color: #FF9900;
+        }
+
+        .microsoft {
+            color: #00A1F1;
+        }
+
+        .uber {
+            color: #000;
+        }
+
+        .dropbox {
+            color: #0061FF;
+        }
+
+        .partners-grid img {
+            height: 54px;
+            max-width: 100%;
+            object-fit: contain;
+            display: block;
+            margin: 0 auto;
+        }
+
+        /* Testimonials Section Styles */
+        .testimonials {
+            /*
+                Section for client testimonials with slider
+            */
+            padding: 5rem 0;
+            background: white;
+        }
+
+        .testimonial-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .testimonial-logo {
+            font-size: initial;
+        }
+
+        .testimonial-logo img {
+            height: 40px;
+        }
+
+        .testimonial-content {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonial-slide {
+            display: none;
+            padding: 2rem 0;
+        }
+
+        .testimonial-slide.active {
+            display: block;
+        }
+
+        .testimonial-text {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+
+        .author-avatar img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .author-info h4 {
+            margin: 0;
+            color: #333;
+        }
+
+        .author-info p {
+            margin: 0;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .testimonial-dots {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 2rem;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ddd;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .dot.active {
+            background: #2196F3;
+        }
+
+        /* Pricing Section Styles */
+        .pricing {
+            /*
+                Section for pricing plans in a grid
+            */
+            padding: 5rem 0;
+            background: #252b42;
+            color: white;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            align-items: center;
+        }
+
+        .pricing-card {
+            background: white;
+            color: black;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            position: relative;
+            transition: transform 0.3s;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .pricing-card.featured {
+            background: #2196F3;
+            color: white;
+            padding: 4rem 2rem;
+        }
+
+        .pricing-card.featured:hover {
+            transform: translateY(-10px);
+        }
+
+        .pricing-card > p {
+            color: #666;
+        }
+
+        .pricing-card .price-period,
+        .pricing-card .pricing-features li {
+            color: #666;
+        }
+
+        .pricing-card.featured > p,
+        .pricing-card.featured .price,
+        .pricing-card.featured .price-period,
+        .pricing-card.featured .pricing-features li {
+            color: white;
+            opacity: 0.95;
+        }
+
+        .price {
+            font-size: 3rem;
+            font-weight: bold;
+            margin: 1.5rem 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .price .price-period {
+            font-size: 0.9rem;
+            font-weight: 400;
+            opacity: 0.8;
+        }
+
+        .price span {
+            font-size: 1rem;
+            vertical-align: super;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+
+        .pricing-features li {
+            padding: 0.5rem 0;
+        }
+
+        .pricing-card.featured .btn {
+            background: white;
+            color: #2196F3;
+        }
+
+        .pricing .section-title,
+        .pricing .section-subtitle {
+            color: white;
+        }
+
+        /* Contact Section Styles */
+        .contact {
+            /*
+                Section for contact form and details
+            */
+            padding: 5rem 0;
+            background: white;
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .contact-form {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .contact-form h3 {
+            margin-bottom: 2rem;
+            color: #333;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 18px 25px;
+            border: none;
+            border-radius: 40px;
+            outline: none;
+            font-size: 1rem;
+            background-color: #f5f5f5;
+        }
+
+        .form-group textarea {
+            border-radius: 20px;
+            resize: vertical;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: #999;
+        }
+
+        .contact-form .btn {
+            width: 100%;
+            border-radius: 40px;
+        }
+
+        .contact-info {
+            padding: 2rem 0;
+        }
+
+        .contact-details {
+            display: flex;
+            flex-direction: row;
+            gap: 2.5rem;
+            margin-bottom: 2rem;
+            align-items: center;
+            flex-wrap: nowrap;
+            justify-content: flex-start;
+        }
+
+        .contact-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .contact-item span {
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        .contact-icon {
+            width: auto;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .contact-icon img {
+            height: 100%;
+            width: auto;
+        }
+
+        .map-embed {
+            width: 100%;
+            height: 300px;
+            border: none;
+            border-radius: 10px;
+            margin-top: 2rem;
+        }
+
+        /* Footer Styles */
+        footer {
+            /*
+                Footer with multiple columns for links and contact info
+            */
+            background: #252b42;
+            color: white;
+            padding: 3rem 0;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 1rem;
+            color: #ffffff;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section ul li a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section ul li a:hover {
+            color: #2196F3;
+        }
+
+        .footer-contact {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .footer-social a {
+            color: white;
+            font-size: 1.2rem;
+            text-decoration: none;
+        }
+
+        /* Modal Styles */
+        .modal {
+            /*
+                Modal overlay for popups (not currently used)
+            */
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 15% auto;
+            padding: 2rem;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            position: relative;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: #000;
+        }
+
+        .modal h2 {
+            color: #2196F3;
+            margin-bottom: 1rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .organize-content,
+            .prototyping-content,
+            .contact-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .pricing-grid,
+            .partners-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        footer .contact-item span {
+            color: white;
+        }
+
+        /* Equal height for main sections except hero, navbar, and footer */
+        .equal-section {
+            /*
+                Ensures main sections have equal minimum height for layout balance
+            */
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        @media (max-width: 900px) {
+            .equal-section {
+                min-height: 60vh;
+            }
+        }
+        @media (max-width: 600px) {
+            .equal-section {
+                min-height: 40vh;
+            }
+        }
+
+        .footer-contact .contact-item {
+            flex-direction: row;
+            align-items: center;
+            gap: 1rem;
+        }
+        .footer-contact .contact-icon {
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <!--
+        NAVIGATION BAR
+        Contains links to main sections and logo
+    -->
+    <nav>
+        <div class="nav-container">
+            <div class="nav-left">
+                <a href="#">Home</a>
+                <a href="#">Product</a>
+                <a href="#">Pricing</a>
+                <a href="#">About</a>
+                <a href="#">Contact</a>
+            </div>
+            <img src="https://i.ibb.co/GvgtsFx3/Rectangle-4.png" alt="Logo" style="height: 62px; margin-left: -20%;">
+            <div class="nav-right">
+                <a href="#"><img src="https://i.ibb.co/FL9QsmBz/Vector.png" alt="Custom Icon"
+                        style="width:29px; height:29px;"></a>
+                <a href="#"><img src="https://i.ibb.co/ns589M18/Vector-1.png" alt="Custom Icon"
+                        style="width:29px; height:29px;"></a>
+                <a href="#"><img src="https://i.ibb.co/7dmGdLwS/Vector-2.png" alt="Custom Icon"
+                        style="width:29px; height:29px;"></a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section with V-bottom shape -->
+    <section class="hero">
+        <!--
+            HERO SECTION
+            Main headline, subheadline, and call-to-action button
+        -->
+        <div class="hero-content">
+            <h1>The best products<br>start with Figma</h1>
+            <p>Most calendars are designed for teams. Slate is designed for freelancers</p>
+            <a class="btn" href="#">Try For Free</a>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="product" class="features equal-section">
+        <!--
+            FEATURES SECTION
+            Title, subtitle, and three feature cards in a grid
+        -->
+        <div class="container">
+            <h2 class="section-title">Features</h2>
+            <p class="section-subtitle">Most calendars are designed for teams.<br>Slate is designed for freelancers</p>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <img src="https://i.ibb.co/5hq2nC9F/Vector-3.png" alt="Feature Icon" style="width: 80px; height: 80px;">
+                    </div>
+                    <h3>OpenType features Variable fonts</h3>
+                    <p>Slate helps you see how many more days you need to work to reach your financial goal.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <img src="https://i.ibb.co/4wkzGKsq/Vector-4.png" alt="Feature Icon" style="width: 80px; height: 80px;">
+                    </div>
+                    <h3>Design with real data</h3>
+                    <p>Slate helps you see how many more days you need to work to reach your financial goal.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <img src="https://i.ibb.co/LXT6Q4KC/Vector-5.png" alt="Feature Icon" style="width: 80px; height: 80px;">
+                    </div>
+                    <h3>Fastest way to take action</h3>
+                    <p>Slate helps you see how many more days you need to work to reach your financial goal.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Section -->
+    <section class="video-section equal-section">
+        <!--
+            VIDEO SECTION
+            Contains a video with play/pause overlay button
+        -->
+        <div class="container">
+            <div class="video-container">
+                <div class="video-wrapper">
+                    <video id="mainVideo" muted>
+                        <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="play-button paused" id="playButton">
+                        <span class="play-icon" style="font-size: 3rem; color: white;">&#9658;</span>
+                        <span class="pause-icon" style="font-size: 3rem; color: white;">&#10073;&#10073;</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Organize Section -->
+    <section class="organize-section equal-section">
+        <!--
+            ORGANIZE SECTION
+            Text and image side by side, with CTA button
+        -->
+        <div class="container">
+            <div class="organize-content">
+                <div class="organize-text">
+                    <h2>Fastest way to organize</h2>
+                    <p>Most calendars are designed for teams. Slate is designed for freelancers</p>
+                    <a href="#" class="btn">Try For Free</a>
+                </div>
+                <div class="organize-image">
+                    <img src="https://i.ibb.co/q32Vt76z/Macbook-Pro.png" alt="Macbook Pro showing organization app">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Prototyping Section -->
+    <section class="prototyping-section equal-section">
+        <!--
+            PROTOTYPING SECTION
+            Illustration and newsletter subscription form
+        -->
+        <div class="container">
+            <div class="prototyping-content">
+                <div class="prototyping-image">
+                    <img src="https://i.ibb.co/4ZGQWC0Q/undraw_newsletter_vovu.png" alt="Newsletter Illustration">
+                </div>
+                <div class="prototyping-text">
+                    <h3>At your fingertips</h3>
+                    <h2>Lightning fast prototyping</h2>
+                    <p><strong>Subscribe to our Newsletter</strong><br>Available exclusively on Figmaland</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your Email" required>
+                        <button type="submit" class="btn">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partners Section -->
+    <section class="partners equal-section">
+        <!--
+            PARTNERS SECTION
+            Grid of partner logos with CTA button
+        -->
+        <div class="container">
+            <h2 class="section-title">Partners</h2>
+            <p class="section-subtitle">Most calendars are designed for teams.<br>Slate is designed for freelancers</p>
+
+            <div class="partners-grid">
+                <div class="partner-card">
+                    <p>Client Name</p>
+                    <img src="https://i.ibb.co/cc8D6d3W/logos-google.png" alt="Google Logo" style="max-height: 54px;">
+                </div>
+
+                <div class="partner-card">
+                    <p>Client Name</p>
+                    <img src="https://i.ibb.co/VYJYf7gd/Rectangle.png" alt="Amazon Logo" style="max-height: 54px;">
+                </div>
+
+                <div class="partner-card">
+                    <p>Client Name</p>
+                    <img src="https://i.ibb.co/yBfnCthr/Rectangle-1.png" alt="Microsoft Logo" style="max-height: 54px;">
+                </div>
+
+                <div class="partner-card">
+                    <p>Client Name</p>
+                    <img src="https://i.ibb.co/CKtTC3zk/Rectangle-4.png" alt="Uber Logo" style="max-height: 54px;">
+                </div>
+
+                <div class="partner-card">
+                    <p>Client Name</p>
+                    <img src="https://i.ibb.co/8DM1Vmrq/Rectangle-3.png" alt="Dropbox Logo" style="max-height: 54px;">
+                </div>
+
+                <div class="partner-card">
+                    <p>Client Name</p>
+                    <img src="https://i.ibb.co/cc8D6d3W/logos-google.png" alt="Google Logo" style="max-height: 54px;">
+                </div>
+
+                <div class="partner-card">
+                    <p>Client Name</p>
+                    <img src="https://i.ibb.co/CKtTC3zk/Rectangle-4.png" alt="Uber Logo" style="max-height: 54px;">
+                </div>
+
+                <div class="partner-card">
+                    <p>Client Name</p>
+                    <img src="https://i.ibb.co/VYJYf7gd/Rectangle.png" alt="Amazon Logo" style="max-height: 54px;">
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 3rem;">
+                <a href="#" class="btn">Try For Free</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials equal-section">
+        <!--
+            TESTIMONIALS SECTION
+            Rotating testimonial slides with author info
+        -->
+        <div class="container">
+            <h2 class="section-title">Testimonials</h2>
+
+            <div class="testimonial-container">
+                <div class="testimonial-logo" style="font-size: initial;">
+                    <img src="https://i.ibb.co/XfWrLbZM/Vector-6.png" alt="IBM Logo" style="height: 40px;">
+                </div>
+
+                <div class="testimonial-content">
+                    <div class="testimonial-slide active">
+                        <p class="testimonial-text">Most calendars are designed for teams. Slate is designed for
+                            freelancers who want a simple way to plan their schedule.</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <img src="https://i.ibb.co/s9vnkD3q/Ellipse-2.png" alt="Author Avatar">
+                            </div>
+                            <div class="author-info">
+                                <h4>John Doe</h4>
+                                <p>UI designer</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-slide">
+                        <p class="testimonial-text">Slate has revolutionized how I manage my freelance projects. The
+                            intuitive design makes scheduling effortless.</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <img src="https://i.ibb.co/s9vnkD3q/Ellipse-2.png" alt="Author Avatar">
+                            </div>
+                            <div class="author-info">
+                                <h4>Sarah Miller</h4>
+                                <p>Freelance Developer</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-slide">
+                        <p class="testimonial-text">As a creative professional, I need tools that understand my
+                            workflow. Slate delivers exactly that.</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <img src="https://i.ibb.co/s9vnkD3q/Ellipse-2.png" alt="Author Avatar">
+                            </div>
+                            <div class="author-info">
+                                <h4>Mike Johnson</h4>
+                                <p>Creative Director</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-dots">
+                    <span class="dot active" onclick="currentSlide(1)"></span>
+                    <span class="dot" onclick="currentSlide(2)"></span>
+                    <span class="dot" onclick="currentSlide(3)"></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="pricing equal-section">
+        <!--
+            PRICING SECTION
+            Three pricing cards (Free, Standard, Business)
+        -->
+        <div class="container">
+            <h2 class="section-title">Pricing</h2>
+            <p class="section-subtitle">Most calendars are designed for teams.<br>Slate is designed for freelancers</p>
+
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3>FREE</h3>
+                    <p>Organize across all apps by hand</p>
+                    <div class="price">0<span>$</span>
+                        <p class="price-period">Per Month</p>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>Pricing Feature</li>
+                        <li>Pricing Feature</li>
+                        <li>Pricing Feature</li>
+                        <li>Pricing Feature</li>
+                        <li>Pricing Feature</li>
+                    </ul>
+                    <a href="#" class="btn">Order Now</a>
+                </div>
+
+                <div class="pricing-card featured">
+                    <h3>STANDARD</h3>
+                    <p>Organize across all apps by hand</p>
+                    <div class="price">10<span>$</span>
+                        <p class="price-period">Per Month</p>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>Pricing Feature</li>
+                        <li>Pricing Feature</li>
+                        <li>Pricing Feature</li>
+                        <li>Pricing Feature</li>
+                        <li>Pricing Feature</li>
+                    </ul>
+                    <a href="#" class="btn">Order Now</a>
+                </div>
+
+                <div class="pricing-card">
+                    <h3>BUSINESS</h3>
+                    <p>Organize across all apps by hand</p>
+                    <div class="price">99<span>$</span>
+                        <p class="price-period">Per Month</p>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>Pricing Feature</li>
+                        <li>Pricing Feature</li>
+                        <li>Pricing Feature</li>
+                        <li>Pricing Feature</li>
+                        <li>Pricing Feature</li>
+                    </ul>
+                    <a href="#" class="btn">Order Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Contact Section -->
+    <section id="contact" class="contact equal-section">
+        <!--
+            CONTACT SECTION
+            Contact form (mailto) and contact details with map and social links
+        -->
+        <div class="container">
+            <h2 class="section-title">Contact Us</h2>
+            <p class="section-subtitle">Most calendars are designed for teams.<br>Slate is designed for freelancers</p>
+
+            <div class="contact-content">
+                <div class="contact-form">
+                    <h3>Contact Us</h3>
+                    <form action="mailto:adarshyadav200328@gmail.com" method="POST" enctype="text/plain">
+                        <div class="form-group">
+                            <input type="text" name="Name" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" name="Email" placeholder="Your Email" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea rows="5" name="Message" placeholder="Your Message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn">Send</button>
+                    </form>
+                </div>
+
+                <div class="contact-info">
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <img src="https://i.ibb.co/ymjzt0YL/bx-bx-map.png" alt="Contact Icon">
+                            </div>
+                            <span>7480 Mistwood Hollo</span>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <img src="https://i.ibb.co/PGYryt89/ic-baseline-phone-android.png" alt="Contact Icon">
+                            </div>
+                            <span>(239) 555-0108</span>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <img src="https://i.ibb.co/xqYFBy2j/ant-design-mail-outlined.png" alt="Email Icon">
+                            </div>
+                            <span>willie.jennings@example.com</span>
+                        </div>
+                    </div>
+                    <iframe class="map-embed"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7012.01007328989!2d77.0266386!3d28.4594965!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d19b3b6b6b6b6%3A0x6b6b6b6b6b6b6b6b!2sGurgaon%2C%20Haryana%2C%20India!5e0!3m2!1sen!2sin!4v1717171717171!5m2!1sen!2sin"
+                        allowfullscreen="" loading="lazy"></iframe>
+                    <div class="footer-social" style="margin-top: 1.5rem; gap: 1.5rem;">
+                        <a href="#"><img src="https://i.ibb.co/QFM50QjD/ant-design-twitter-outlined.png" alt="Twitter" style="height: 30px;"></a>
+                        <a href="#"><img src="https://i.ibb.co/qM6WxcGs/ant-design-facebook-filled.png" alt="Facebook" style="height: 30px;"></a>
+                        <a href="#"><img src="https://i.ibb.co/hFkLV0NT/ant-design-linkedin-filled.png" alt="LinkedIn" style="height: 30px;"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer>
+        <!--
+            FOOTER
+            Four columns: navigation, team, more info, and contact/social
+        -->
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Pages</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#product">Features</a></li>
+                        <li><a href="#partners">Partners</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Tomothy</h4>
+                    <ul>
+                        <li>Eleanor Edwards</li>
+                        <li>Ted Robertson</li>
+                        <li>Annette Russell</li>
+                        <li>Jennie Mckinney</li>
+                        <li>Gloria Richards</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Jane Black</h4>
+                    <ul>
+                        <li>Philip Jones</li>
+                        <li>Product</li>
+                        <li>Colleen Russell</li>
+                        <li>Marvin Hawkins</li>
+                        <li>Bruce Simmmons</li>
+                    </ul>
+                </div>
+                <div class="footer-section footer-contact">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <img src="https://i.ibb.co/mCqk35Y4/bx-bx-map-1.png" alt="Contact Icon">
+                        </div>
+                        <span>7480 Mistwood Hollo</span>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <img src="https://i.ibb.co/hF3yZSp9/ic-baseline-phone-android-1.png" alt="Contact Icon">
+                        </div>
+                        <span>(239) 555-0108</span>
+                    </div>
+                    <div class="footer-social">
+                        <a href="#"><img src="https://i.ibb.co/PZSPNwDr/ant-design-twitter-outlined-1.png" alt="Social Icon" style="width:30px; height:30px;"></a>
+                        <a href="#"><img src="https://i.ibb.co/0Rv1LTfz/ant-design-facebook-filled-1.png" alt="Social Icon" style="width:30px; height:30px;"></a>
+                        <a href="#"><img src="https://i.ibb.co/Rx9Cwbw/ant-design-linkedin-filled-1.png" alt="Social Icon" style="width:30px; height:30px;"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script>
+        //
+        // VIDEO PLAY/PAUSE FUNCTIONALITY
+        //
+        // Get video and play button elements
+        const video = document.getElementById('mainVideo');
+        const playButton = document.getElementById('playButton');
+        const playIcon = playButton.querySelector('.play-icon');
+        const pauseIcon = playButton.querySelector('.pause-icon');
+
+        // Update play button state based on video status
+        function updatePlayButton() {
+            if (video.paused) {
+                playButton.classList.remove('playing');
+                playButton.classList.add('paused');
+            } else {
+                playButton.classList.remove('paused');
+                playButton.classList.add('playing');
+            }
+        }
+
+        // Toggle video play/pause on button click
+        function toggleVideo() {
+            if (video.paused) {
+                video.play();
+            } else {
+                video.pause();
+            }
+        }
+
+        // Event listeners for play button and video
+        playButton.addEventListener('click', function (e) {
+            e.stopPropagation();
+            toggleVideo();
+        });
+        video.addEventListener('click', function () {
+            if (!video.paused) {
+                video.pause();
+            }
+        });
+        video.addEventListener('ended', updatePlayButton);
+        video.addEventListener('play', updatePlayButton);
+        video.addEventListener('pause', updatePlayButton);
+
+        // Set initial play button state
+        updatePlayButton();
+
+        //
+        // TESTIMONIAL SLIDER FUNCTIONALITY
+        //
+        // Rotates through testimonial slides every 5 seconds
+        let currentSlideIndex = 0;
+        function showSlides() {
+            const slides = document.querySelectorAll('.testimonial-slide');
+            const dots = document.querySelectorAll('.dot');
+            slides.forEach((slide, index) => {
+                slide.classList.remove('active');
+                dots[index].classList.remove('active');
+            });
+            currentSlideIndex++;
+            if (currentSlideIndex > slides.length) {
+                currentSlideIndex = 1;
+            }
+            slides[currentSlideIndex - 1].classList.add('active');
+            dots[currentSlideIndex - 1].classList.add('active');
+            setTimeout(showSlides, 5000); // Change slide every 5 seconds
+        }
+        showSlides();
+        // Allows manual selection of testimonial slide
+        function currentSlide(n) {
+            currentSlideIndex = n;
+            showSlides();
+        }
+        //
+        // NAVBAR SCROLL EFFECT
+        // Adds a background to the navbar when scrolling down
+        window.addEventListener('scroll', function () {
+            const navbar = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+
+</html>
